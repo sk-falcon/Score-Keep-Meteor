@@ -1,8 +1,8 @@
-import {greetUser, name} from './../imports/utils'
-import {add} from './../imports/math'
+import someDeafault, {greetUser, name} from './../imports/utils'
+
 
 
 console.log('Log from client/main.js');
 console.log(greetUser());
 console.log(name);
-console.log(add(2,2));
+console.log(someDeafault);

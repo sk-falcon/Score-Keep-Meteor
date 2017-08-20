@@ -5,13 +5,20 @@ import {Tracker} from 'meteor/tracker'
 
 import {Players} from './../imports/api/players'
 
-const renderPlayers = function(playersList){
-  return playersList.map(function(obj) {
-    return <p key={obj._id}>{obj.name} has {obj.score} point(s).</p>;
+const renderPlayers = (playersList) => {
+  return playersList.map((obj) => {
+    return (
+      <p key={obj._id}>
+        {obj.name} has {obj.score} point(s).
+        <button onClick={() => Players.update({_id: obj._id},{$inc:{score: 1} })}>+1</button>
+        <button onClick={() => Players.update({_id: obj._id},{$inc:{score: -1} })}>-1</button>
+        <button onClick={() => Players.remove({_id: obj._id})}>X</button>
+      </p>
+    );
   });
 };
 
-const handleSubmit = function(e){
+const handleSubmit = (e) => {
   let playerName = e.target.playerName.value;
 
   e.preventDefault();
@@ -21,24 +28,23 @@ const handleSubmit = function(e){
 
     Players.insert({
       name: playerName,
-      score: 99
+      score: 0
     });
   }
 
 };
 
-Meteor.startup(function(){
+Meteor.startup(() => {
 
-  Tracker.autorun( function() {
+  Tracker.autorun( () => {
 
     let players = Players.find().fetch();
-    let title = 'Sparsh';
+    let title = 'Score Keep';
     let name = 'SK';
     let jsx = (
       <div>
         <h1>{title}</h1>
         <p>Hello {name}!</p>
-        <p>This is the Second Para</p>
         {renderPlayers(players)}
         <form onSubmit={handleSubmit}>
           <input type="text" name="playerName" placeholder="Player Name"/>

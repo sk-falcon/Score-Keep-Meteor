@@ -7,6 +7,10 @@ Meteor.startup(function(){
     score: 100
   });*/
 
-  console.log(Players.find().fetch());
+  // console.log(Players.find().fetch());
+
+  let numbers = [1,2,3,4];
+  let newNumbers  = numbers.map((number) => number + 1);
+  console.log(newNumbers);
 
 });
